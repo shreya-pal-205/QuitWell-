@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="prediction-section position-relative" style="min-height: 100vh; color: #fff; display:flex; align-items:center; justify-content:center;">
+
+  <!-- Fullscreen Background Image with Dark Overlay -->
+  <div class="bg-image position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/4386464/pexels-photo-4386464.jpeg') center/cover no-repeat; z-index:1;">
+  </div>
+
+  <!-- Main Content (glass cards) -->
+  <div class="container position-relative" style="z-index:2;">
+
+    <h2 class="text-center mb-4 fw-bold" style="color: #FF7A30;">🩺 Oral Cancer Prediction</h2>
+    <p class="text-center mb-5" style="color:#E9E3DF;">Upload a colored image of the mouth/oral area. The AI model will predict the likelihood of oral cancer and show a confidence score.</p>
+
+    <!-- Upload Form -->
+    <div class="d-flex justify-content-center mb-5">
+      <form method="POST" enctype="multipart/form-data" class="upload-card p-4 rounded-4 shadow-lg"
+            style="background: rgba(255,255,255,0.05); backdrop-filter: blur(14px); width: 100%; max-width: 500px;">
+        <input type="file" name="file" accept="image/*" class="form-control mb-3" required>
+        <button type="submit" class="btn btn-warning w-100 fw-bold">Upload & Predict</button>
+      </form>
+    </div>
+
+    {% if filename %}
+      <div class="result-section text-center">
+        <div class="uploaded-img-wrapper mb-4">
+          <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" class="rounded-4 shadow-lg" style="max-width: 300px; width: 100%;">
+        </div>
+
+        {% if result %}
+        <div class="prediction-card mx-auto p-4 rounded-4 shadow-lg"
+             style="background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); width: 100%; max-width: 400px;">
+          <h3 class="fw-bold mb-3" style="color: {% if 'Oral' in result.label %}#FF7A30{% else %}#E9E3DF{% endif %};">{{ result.label }}</h3>
+          <p class="mb-0">Confidence Score:</p>
+          <h4 class="fw-bold" style="color: #FFFFFF;">{{ (result.prob * 100) | round(2) }}%</h4>
+        </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- Custom Styles -->
+<style>
+.upload-card input[type="file"] {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid #FF7A30;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.upload-card input[type="file"]:hover {
+    border-color: #E9E3DF;
+}
+
+.upload-card button {
+    transition: all 0.3s ease;
+}
+.upload-card button:hover {
+    background-color: #465C88;
+    color: #FF7A30;
+}
+
+.prediction-card {
+    transition: all 0.3s ease;
+}
+.prediction-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(255, 122, 48, 0.5);
+}
+
+.uploaded-img-wrapper img {
+    transition: transform 0.3s ease;
+}
+.uploaded-img-wrapper img:hover {
+    transform: scale(1.05);
+}
+
+/* Ensure full-screen section has no scroll overflow */
+.prediction-section {
+    overflow: hidden;
+}
+</style>
+{% endblock %}

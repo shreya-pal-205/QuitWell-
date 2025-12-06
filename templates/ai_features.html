@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="ai-features-section" style="position: relative; min-height: 100vh; background: url('https://media.istockphoto.com/id/1224408037/photo/world-no-tobacco-day-may-31st-no-smoking-day-poison-of-cigarette.jpg?s=612x612&w=0&k=20&c=eTiqDWD1roN5U3QqNraKZCebdhWc7EGFLGBPiOIaLCc=') center/cover no-repeat;">
+
+  <!-- Dark overlay -->
+  <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.65); z-index:1;"></div>
+
+  <div class="container" style="position: relative; z-index: 2; color: #fff; padding-top: 60px; padding-bottom: 60px;">
+
+    <h2 class="text-center mb-4 fw-bold" style="color: #FF7A30;">🚭 AI Smoking Impact & Health Risk Predictor</h2>
+    <p class="text-center mb-5">Enter your smoking details to visualize impact, predict health risks, and see AI-generated insights.</p>
+
+    <!-- Input Form -->
+    <div class="d-flex justify-content-center mb-5">
+      <form method="POST" class="glass-card p-4 rounded-4 shadow-lg" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); width: 100%; max-width: 500px;">
+        <div class="mb-3">
+          <label class="form-label">Cigarettes per day</label>
+          <input name="cigarettes_per_day" type="number" step="1" min="0" value="5" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Years smoked</label>
+          <input name="years_smoked" type="number" step="0.1" min="0" value="5" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cost per pack (local currency)</label>
+          <input name="cost_per_pack" type="number" step="0.01" value="5.00" class="form-control" required>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">Cigarettes per pack</label>
+          <input name="cigs_per_pack" type="number" step="1" value="20" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-warning w-100 fw-bold">Visualize & Predict</button>
+      </form>
+    </div>
+
+    <!-- Results -->
+    {% if result %}
+    <div class="result-card mx-auto p-4 rounded-4 shadow-lg mb-5" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(14px); width: 100%; max-width: 700px;">
+      <h3 class="fw-bold mb-3" style="color: #FF7A30;">Summary</h3>
+      <ul class="mb-3" style="list-style: none; padding-left: 0; color: #fff;">
+        <li><strong>Cigarettes/day:</strong> {{ result.cigarettes_per_day }}</li>
+        <li><strong>Years smoked:</strong> {{ result.years_smoked }}</li>
+        <li><strong>Total cigarettes:</strong> {{ result.total_cigarettes }}</li>
+        <li><strong>Packs used:</strong> {{ result.packs_used }}</li>
+        <li><strong>Money spent:</strong> {{ result.money_spent }}</li>
+        <li><strong>Estimated risk score:</strong> {{ result.risk_score }}</li>
+        <li><strong>Possible diseases:</strong> {{ result.diseases | join(', ') }}</li>
+      </ul>
+
+      <!-- New AI Reasoning Box -->
+      <h4 class="fw-bold mt-4" style="color: #FFCC00;">AI Reasoning</h4>
+      <div class="ai-reasoning-box p-4 rounded-4 mb-4">
+        <p style="margin: 0; white-space: pre-wrap;">{{ gen_text }}</p>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- Custom CSS -->
+<style>
+.glass-card input.form-control {
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    border: 1px solid #FF7A30;
+    transition: all 0.3s ease;
+}
+.glass-card input.form-control:focus {
+    border-color: #465C88;
+    box-shadow: 0 0 8px rgba(70,92,136,0.5);
+}
+
+.result-card {
+    transition: all 0.3s ease;
+}
+.result-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 122, 48, 0.5);
+}
+
+.btn-warning {
+    transition: all 0.3s ease;
+}
+.btn-warning:hover {
+    background-color: #465C88;
+    color: #FF7A30;
+}
+
+/* AI Reasoning Box (Yellow Premium) */
+.ai-reasoning-box {
+    background: linear-gradient(135deg, #FFD54F, #FFEB3B);
+    color: #000;
+    border-radius: 18px;
+    border: 2px solid #FFB300;
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.45);
+    font-size: 1rem;
+    line-height: 1.55;
+    backdrop-filter: blur(6px);
+    overflow: visible;
+}
+
+
+</style>
+{% endblock %}

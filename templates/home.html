@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-section position-relative" style="min-height: 100vh; width:100vw; overflow:hidden;">
+
+  <!-- Fullscreen Carousel -->
+  <div id="fullscreenCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" style="height:100vh;">
+    <div class="carousel-inner h-100">
+      <div class="carousel-item active h-100">
+        <img src="https://images.ctfassets.net/mrbo2ykgx5lt/22341/5535f080e1a7bb67f5fbb382d2295c7c/cigarette-lung-bowel-inflammation.jpg?&w=1920&fm=webp&q=80" class="d-block w-100 h-100 object-fit-cover" alt="Oral Health">
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-center">
+          <div class="glass-card p-5 rounded-4 shadow-lg">
+            <h1 class="display-4 fw-bold mb-3" style="color:#FF7A30;">Oral Cancer Detection</h1>
+            <p class="lead mb-4">Upload your oral images and let AI help you assess risks.</p>
+            <a class="btn btn-accent me-3" href="{{ url_for('predict') }}">Predict an Image</a>
+            <a class="btn btn-outline-accent" href="{{ url_for('ai_features') }}">Smoking Impact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item h-100">
+        <img src="https://www.aimsindia.com/wp-content/uploads/2022/05/Stop-Smoking.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Smoking Impact">
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-center">
+          <div class="glass-card p-5 rounded-4 shadow-lg">
+            <h1 class="display-4 fw-bold mb-3" style="color:#FF7A30;">Visualize Smoking Impact</h1>
+            <p class="lead mb-4">See how smoking affects your health with intuitive visuals.</p>
+            <a class="btn btn-accent me-3" href="{{ url_for('ai_features') }}">Explore</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item h-100">
+        <img src="https://images.indianexpress.com/2021/05/Untitled-design-9-3.png" class="d-block w-100 h-100 object-fit-cover" alt="Motivation">
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-center">
+          <div class="glass-card p-5 rounded-4 shadow-lg">
+            <h1 class="display-4 fw-bold mb-3" style="color:#FF7A30;">Quit Smoking Coach</h1>
+            <p class="lead mb-4">Receive motivational messages and track your progress daily.</p>
+            <a class="btn btn-accent me-3" href="{{ url_for('chatbot_page') }}">Chat Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#fullscreenCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#fullscreenCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <!-- Extra Info Cards below carousel -->
+  <div class="container mt-5">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="glass-box p-4 rounded-4 shadow-lg hover-shadow">
+          <h5 class="fw-bold mb-3">Easy AI Predictions</h5>
+          <p>Upload mouth/oral area photos and get AI-powered oral cancer detection in seconds.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="glass-box p-4 rounded-4 shadow-lg hover-shadow">
+          <h5 class="fw-bold mb-3">Health Insights</h5>
+          <p>Track your smoking habits, calculate risks, and visualize long-term health effects.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="glass-box p-4 rounded-4 shadow-lg hover-shadow">
+          <h5 class="fw-bold mb-3">Motivation & Tracking</h5>
+          <p>Receive Gemini-powered motivational messages and track money saved, cigarettes avoided, and health improvements.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+/* Make carousel images cover full screen */
+.carousel-item img {
+  object-fit: cover;
+}
+
+/* Glassmorphism for cards */
+.glass-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.glass-box {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(255,122,48,0.7);
+}
+
+/* Carousel caption style */
+.carousel-caption h1, .carousel-caption p {
+  color: #fff;
+}
+
+/* Buttons inside glass-card */
+.glass-card .btn-accent {
+  margin-top: 10px;
+}
+</style>
+{% endblock %}

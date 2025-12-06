@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="tracker-section position-relative" style="min-height: 100vh; display:flex; align-items:center; justify-content:center;">
+
+  <!-- Fullscreen Background Image with Dark Overlay -->
+  <div class="bg-image position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://www.cancer.gov/sites/g/files/xnrzdm211/files/cgov_image/social_media/100/200/7/files/quit-smoking-calendar-sm.jpg') center/cover no-repeat; z-index:1;">
+  </div>
+
+  <!-- Main Content -->
+  <div class="container position-relative" style="z-index:2;">
+
+    <h2 class="text-center mb-4 fw-bold" style="color: #FF7A30;">💡 AI Progress & Savings Tracker</h2>
+    <p class="text-center mb-5" style="color:#E9E3DF;">Track your quit journey, see cigarettes avoided, money saved, and estimated health benefits.</p>
+
+    <!-- Tracker Form -->
+    <div class="d-flex justify-content-center mb-5">
+      <form method="POST" class="tracker-card p-4 rounded-4 shadow-lg"
+            style="background: rgba(255,255,255,0.05); backdrop-filter: blur(14px); width: 100%; max-width: 500px;">
+        <label class="form-label text-white">Date you quit
+          <input name="quit_date" type="date" class="form-control mb-3" required>
+        </label>
+        <label class="form-label text-white">Cigarettes per day before quitting
+          <input name="cigarettes_per_day_before" type="number" step="1" value="5" class="form-control mb-3" required>
+        </label>
+        <label class="form-label text-white">Cost per pack
+          <input name="cost_per_pack" type="number" step="0.01" value="5.00" class="form-control mb-3" required>
+        </label>
+        <label class="form-label text-white">Cigarettes per pack
+          <input name="cigs_per_pack" type="number" step="1" value="20" class="form-control mb-3" required>
+        </label>
+
+        <button class="btn btn-warning w-100 fw-bold" type="submit">Calculate</button>
+      </form>
+    </div>
+
+    <!-- Results Section -->
+    {% if result %}
+      <div class="result-section text-center">
+        <div class="tracker-result-card mx-auto p-4 rounded-4 shadow-lg"
+             style="background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); width: 100%; max-width: 500px;">
+          <h3 class="fw-bold mb-3" style="color: #FF7A30;">Your Progress</h3>
+          <p class="text-white mb-1">Days quit: {{ result.days_quit }}</p>
+          <p class="text-white mb-1">Cigarettes avoided: {{ result.cigarettes_avoided }}</p>
+          <p class="text-white mb-1">Packs saved: {{ result.packs_saved }}</p>
+          <p class="text-white mb-1">Money saved: {{ result.money_saved }}</p>
+          <p class="text-white mb-3">Estimated life days added: {{ result.life_days_added }}</p>
+
+          <h4 class="fw-bold mb-2" style="color: #FFCC00;">Motivational Insight</h4>
+<div class="ai-reasoning-box p-4 rounded-4 mb-4">
+    <p style="margin: 0; white-space: pre-wrap;">{{ result.motivation }}</p>
+</div>
+
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- Custom Styles -->
+<style>
+.tracker-card input[type="date"],
+.tracker-card input[type="number"] {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid #FF7A30;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.tracker-card input:focus {
+    outline:none;
+    border-color:#E9E3DF;
+}
+
+.tracker-card button {
+    transition: all 0.3s ease;
+}
+.tracker-card button:hover {
+    background-color: #465C88;
+    color: #FF7A30;
+}
+
+.tracker-result-card {
+    transition: all 0.3s ease;
+}
+.tracker-result-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(255, 122, 48, 0.5);
+}
+
+/* Fullscreen section */
+.tracker-section {
+    overflow: hidden;
+}
+    .ai-reasoning-box {
+    background: linear-gradient(135deg, #FFD54F, #FFEB3B);
+    color: #000;
+    border-radius: 18px;
+    border: 2px solid #FFB300;
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.45);
+    font-size: 1rem;
+    line-height: 1.55;
+    backdrop-filter: blur(6px);
+    overflow: visible;
+}
+
+</style>
+{% endblock %}
